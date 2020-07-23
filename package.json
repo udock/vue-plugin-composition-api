@@ -1,0 +1,18 @@
+{
+  "name": "@udock/vue-plugin-composition-api",
+  "version": "3.0.0",
+  "description": "@udock/vue-plugin-composition-api",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "prepublish": "tsc"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^14.0.24",
+    "vue": "^3.0.0-rc.4"
+  }
+}
