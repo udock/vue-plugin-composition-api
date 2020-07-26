@@ -1,13 +1,13 @@
 import { ref, computed, UnwrapRef, nextTick } from 'vue'
 import safeParseJSON from './utils/safeParseJSON'
 
-type UseStorageOptions<T> = {
+type UseSessionOptions<T> = {
   readonly?: boolean;
   defaultValue: T;
 }
 
-export default function <T> (key: string, options: UseStorageOptions<T>) {
-  const val = ref(safeParseJSON<T>(localStorage.getItem(key), options.defaultValue))
+export default function <T> (key: string, options: UseSessionOptions<T>) {
+  const val = ref(safeParseJSON<T>(sessionStorage.getItem(key), options.defaultValue))
 
   return computed({
     get () {
@@ -15,14 +15,14 @@ export default function <T> (key: string, options: UseStorageOptions<T>) {
     },
     set (value) {
       if (!options.readonly) {
-        localStorage.setItem(key, JSON.stringify(value))
+        sessionStorage.setItem(key, JSON.stringify(value))
         val.value = value as UnwrapRef<T>
       } else {
         val.value = undefined as UnwrapRef<T>
         nextTick(() => {
-          val.value = safeParseJSON<T>(localStorage.getItem(key), options.defaultValue)
+          val.value = safeParseJSON<T>(sessionStorage.getItem(key), options.defaultValue)
         })
-        console.warn('try change readonly localStorage: ', key)
+        console.warn('try change readonly sessionStorage: ', key)
       }
     }
   })
